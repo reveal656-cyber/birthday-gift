@@ -648,7 +648,7 @@
           `;
         });
       }
-    } // ✅ 這個 } 在你原本版本常常漏掉，這裡已修好
+    }
 
     function pickFood(name, el) {
       state.chosenDessert = name;
@@ -743,7 +743,7 @@
       nextScene('blessing');
       const lines = [
         `對了，關於你選的那份補給品——`,
-        `下次，我帶你去吃「${state.chosenDessert}」。`
+        `下次，我帶你去吃「${state.chosenDessert}」吧！`
       ];
       typewriter('recall-area', lines, 50, () => {
         setTimeout(() => {
