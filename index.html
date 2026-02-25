@@ -3,54 +3,549 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生日快樂！</title>
+    <title>🌊 未知海域 · 禁航區</title>
+    <!-- 字體引入 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Cinzel:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 這裡控制背景顏色 (粉色到藍色漸層) */
+        :root {
+            --bg-deep: #071A2B;
+            --ocean-blue: #0B2D4A;
+            --moonlight: #7CD6FF;
+            --gold: #F7D77A;
+            --pink-purple: #C9A7FF;
+            --text-main: #EAF6FF;
+            --text-sub: rgba(234,246,255,0.75);
+            --err-red: #FF6B6B;
+            --card-bg: rgba(7, 26, 43, 0.8);
+            --ocean-gradient: linear-gradient(180deg, #071A2B 0%, #0B2D4A 100%);
+        }
+
         body {
-            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-deep);
+            background: var(--ocean-gradient);
+            color: var(--text-main);
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0; overflow: hidden; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            transition: background 1.5s ease;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.9); padding: 40px; border-radius: 20px;
-            text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+        /* --------------------------------------------------
+           豪華海洋動畫系統 (Advanced Ocean FX)
+           -------------------------------------------------- */
+        #fx-layer { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        
+        /* 1. 動態海浪 */
+        .waves { position: fixed; bottom: 0; left: 0; width: 100%; height: 15vh; min-height: 100px; max-height: 150px; z-index: -1; opacity: 0.5; transition: 1s; }
+        .parallax > use { animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite; }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+        @keyframes move-forever { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
+
+        /* 2. 背景生物 (魚群) */
+        .sea-creature { position: absolute; opacity: 0.1; pointer-events: none; filter: blur(1px); animation: swim linear infinite; }
+        @keyframes swim { from { left: -150px; } to { left: 110vw; } }
+
+        /* 3. 風暴特效 (Scene 5 Task 3) */
+        .storm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: 0.5s; z-index: 5; pointer-events: none; }
+        .lightning { position: fixed; inset: 0; background: white; opacity: 0; z-index: 50; pointer-events: none; }
+        .rain { position: absolute; background: rgba(255,255,255,0.2); width: 1px; height: 30px; animation: rain-fall linear infinite; }
+        @keyframes rain-fall { to { transform: translateY(110vh); } }
+
+        /* 4. 遊戲化通關特效 */
+        .clear-banner { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); color: var(--gold); font-family: 'Cinzel'; font-size: 4rem; font-weight: bold; opacity: 0; z-index: 100; pointer-events: none; text-shadow: 0 0 20px var(--gold); }
+        .banner-active { animation: banner-pop 1.2s forwards; }
+        @keyframes banner-pop { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 30% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } 70% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); } }
+
+        /* --------------------------------------------------
+           UI 組件 (RPG Style)
+           -------------------------------------------------- */
+        .glass-card {
+            background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(124, 214, 255, 0.4); border-radius: 30px;
+            padding: 2.5rem; width: 90%; max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); position: relative; z-index: 10;
         }
-        h1 { color: #ff6b6b; }
-        p { line-height: 1.8; color: #555; }
-        .btn {
-            margin-top: 20px; padding: 10px 20px; background: #ff6b6b; color: white;
-            border: none; border-radius: 25px; cursor: pointer;
+
+        .title-font { font-family: 'Cinzel', serif; letter-spacing: 0.2em; text-shadow: 0 0 15px var(--moonlight); }
+        .mono-font { font-family: 'JetBrains Mono', monospace; }
+
+        .btn-game {
+            border: 2px solid var(--moonlight); color: var(--moonlight);
+            padding: 0.8rem 2.5rem; border-radius: 12px; transition: 0.4s;
+            cursor: pointer; font-weight: bold; text-transform: uppercase;
+            position: relative; overflow: hidden;
         }
+        .btn-game:hover { background: var(--moonlight); color: var(--bg-deep); box-shadow: 0 0 35px var(--moonlight); transform: translateY(-3px); }
+        .btn-game:active { transform: translateY(1px); }
+
+        .input-game {
+            background: rgba(0,0,0,0.35); border: 1px solid rgba(124, 214, 255, 0.3);
+            border-radius: 10px; text-align: center; width: 100%; padding: 1.1rem;
+            outline: none; color: var(--gold); font-size: 1.6rem; margin: 1.5rem 0;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        /* 貓咪活潑對話框 */
+        .cat-dialogue {
+            position: relative; background: #fff; color: #071A2B;
+            padding: 12px 16px; border-radius: 18px; font-size: 0.85rem;
+            margin-bottom: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            min-height: 55px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-weight: 500;
+        }
+        .cat-dialogue::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            border-width: 10px 10px 0; border-style: solid; border-color: #fff transparent transparent;
+        }
+
+        .dessert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 25px 0; }
+        .dessert-card { border-radius: 18px; border: 3px solid transparent; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .dessert-card img { width: 100%; height: 100%; object-fit: cover; }
+        .dessert-card.selected { border-color: var(--gold); box-shadow: 0 0 30px var(--gold); transform: scale(1.08); }
+
+        .toast {
+            position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%);
+            background: var(--gold); color: #000; padding: 14px 35px;
+            border-radius: 60px; font-weight: bold; opacity: 0; z-index: 100;
+            transition: 0.5s; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .scene { display: none; }
+        .scene.active { display: block; animation: scene-enter 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes scene-enter { from { opacity: 0; transform: scale(0.9) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        .style-calm { --ocean-gradient: radial-gradient(circle at center, #0B2D4A 0%, #071A2B 100%); }
+        .style-storm { --ocean-gradient: linear-gradient(180deg, #020408 0%, #071A2B 100%); }
+        .style-dawn { --ocean-gradient: linear-gradient(180deg, #001524 0%, #1a759f 50%, #ffcfd2 100%); --card-bg: rgba(0, 0, 0, 0.5); }
+
     </style>
 </head>
-<body>
+<body class="style-calm">
 
-    <div class="card" id="main-content" style="display:none;">
-        <div style="font-size: 40px;">🎂</div>
-        <h1>親愛的，生日快樂！</h1>
-        <p>
-            這裡寫下妳想對她說的話。<br>
-            例如：這是一年一度的大日子...<br>
-            願妳每天都開開心心！
-        </p>
-        <button class="btn" onclick="alert('禮物就在我的口袋裡！')">點擊小驚喜</button>
-    </div>
+    <!-- 背景特效圖層 -->
+    <div id="fx-layer"></div>
+    <div id="storm-overlay" class="storm-overlay"></div>
+    <div id="lightning-fx" class="lightning"></div>
+    <div id="clear-banner" class="clear-banner">LEVEL CLEAR</div>
+    <div id="toast-msg" class="toast"></div>
+
+    <!-- 背景海浪 SVG -->
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+        <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(124,214,255,0.7" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(124,214,255,0.5)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(124,214,255,0.3)" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(124,214,255,0.2)" />
+        </g>
+    </svg>
+
+    <main class="glass-card" id="game-container">
+        
+        <!-- Scene 0: 封面入口 -->
+        <div id="scene-0" class="scene active text-center">
+            <div class="mb-10 flex justify-center opacity-80 scale-150">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--moonlight)" stroke-width="1.2" class="animate-[spin_15s_linear_infinite]"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.41 4.25-4.25 1.41 1.41-4.25 4.25-1.41Z"/><circle cx="12" cy="12" r="0.5" fill="currentColor"/></svg>
+            </div>
+            <h1 class="text-4xl mb-4 title-font font-bold text-[var(--moonlight)]">🌊 未知海域 · 禁航區 🌊</h1>
+            <p class="text-sm mb-16 tracking-[0.4em] text-[var(--text-sub)]">只有真正的探險家才能靠近。</p>
+            <button class="btn-game" onclick="nextScene(1)">開始航行 START</button>
+        </div>
+
+        <!-- Scene 1: 密碼關卡 I -->
+        <div id="scene-1" class="scene text-center">
+            <h2 class="text-2xl mb-6 title-font text-[var(--moonlight)]">航海檢定 I</h2>
+            <p class="text-sm mb-4 opacity-80">請輸入生日四碼</p>
+            <input type="password" id="pw1" class="input-game" maxlength="4" autocomplete="off">
+            <div id="err1" class="text-xs text-[var(--err-red)] h-4 font-bold mb-4"></div>
+            <button class="btn-game" onclick="checkPw1()">確認指令</button>
+        </div>
+
+        <!-- Scene 2: 密碼關卡 II -->
+        <div id="scene-2" class="scene text-center">
+            <h2 class="text-2xl mb-6 title-font text-[var(--moonlight)]">航海檢定 II</h2>
+            <p class="text-sm mb-4 opacity-80">請輸入對方生日（四碼）</p>
+            <input type="password" id="pw2" class="input-game" maxlength="4" autocomplete="off">
+            <div id="err2" class="text-xs text-[var(--err-red)] h-4 font-bold mb-4"></div>
+            <button class="btn-game" onclick="checkPw2()">啟動入口</button>
+        </div>
+
+        <!-- Scene 3: 打字機敘事 -->
+        <div id="scene-3" class="scene relative">
+            <div id="typewriter-box" class="mono-font text-[0.95rem] leading-loose text-left"></div>
+            <div class="text-center mt-12">
+                <button id="scene3-btn" class="btn-game hidden" onclick="nextScene(4)">召喚隊友 RECRUIT</button>
+            </div>
+        </div>
+
+        <!-- Scene 4: 貓咪同伴 -->
+        <div id="scene-4" class="scene">
+            <h2 class="text-2xl mb-12 text-center title-font text-[var(--moonlight)]">專業探險隊</h2>
+            <div class="flex justify-around items-end gap-4 mb-10">
+                <div class="flex flex-col items-center w-1/2">
+                    <div class="cat-dialogue" onclick="catSpeech('A')">
+                        <span id="catA-msg" class="text-center">喵：我只是路過...</span>
+                    </div>
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=CatA" class="w-24 h-24 rounded-full border-4 border-[var(--moonlight)] bg-slate-800 shadow-2xl cursor-pointer hover:scale-110 transition" onclick="catEgg('A')">
+                    <p class="text-[0.7rem] mt-4 font-bold text-[var(--pink-purple)] tracking-widest bg-black/40 px-3 py-1 rounded">海圖守護者</p>
+                </div>
+                <div class="flex flex-col items-center w-1/2">
+                    <div class="cat-dialogue" onclick="catSpeech('B')">
+                        <span id="catB-msg" class="text-center">喵：我們要去哪？</span>
+                    </div>
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=CatB" class="w-24 h-24 rounded-full border-4 border-[var(--moonlight)] bg-slate-800 shadow-2xl cursor-pointer hover:scale-110 transition" onclick="catEgg('B')">
+                    <p class="text-[0.7rem] mt-4 font-bold text-[var(--pink-purple)] tracking-widest bg-black/40 px-3 py-1 rounded">浪花偵察員</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn-game" onclick="runQuest(1)">開始任務 START MISSION</button>
+            </div>
+        </div>
+
+        <!-- Scene 5: 任務題組 -->
+        <div id="scene-5" class="scene">
+            <div id="quest-stage" class="text-[1rem] leading-relaxed text-left"></div>
+        </div>
+
+        <!-- Final Scene: 海域核心 -->
+        <div id="scene-final" class="scene text-center">
+            <div class="mb-8 flex justify-center scale-150">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" class="animate-pulse"><path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"/></svg>
+            </div>
+            <h2 id="final-title" class="text-2xl mb-6 title-font text-[var(--gold)] font-bold">海域核心 · 未知之境</h2>
+            <div id="final-narrative" class="text-[0.95rem] mb-8 leading-loose text-left"></div>
+            <div id="final-ui" class="hidden">
+                <p class="text-sm mb-4 opacity-80">屬於我們的 回憶之地 是？</p>
+                <input type="text" id="final-ans" class="input-game" placeholder="在此輸入答案">
+                <button class="btn-game" onclick="checkFinal()">揭開面紗 REVEAL</button>
+            </div>
+        </div>
+
+        <!-- Scene 6: 結局祝福 -->
+        <div id="scene-6" class="scene text-center">
+            <div id="ending-narrative" class="text-[1.05rem] leading-loose mb-10 text-left"></div>
+            <div id="ending-ui" class="hidden flex flex-col gap-5">
+                <button class="btn-game text-xl" onclick="triggerEnding()">我願意</button>
+                <button id="think-btn" class="text-xs text-[var(--text-sub)] underline opacity-50" onclick="handleWait()">我要先想一下</button>
+            </div>
+        </div>
+
+        <!-- Final Blessing Scene -->
+        <div id="scene-blessing" class="scene text-center">
+            <div id="recall-area" class="text-xl mb-12 font-bold text-[var(--moonlight)]"></div>
+            <div id="blessing-area" class="hidden scale-up">
+                <h1 class="text-5xl mb-10 title-font text-[var(--gold)] drop-shadow-[0_0_20px_rgba(247,215,122,0.8)]">🎂 生日快樂 🎂</h1>
+                <div class="text-[1.1rem] leading-loose mb-16 space-y-6">
+                    <p>願我的溫柔像大海一樣，</p>
+                    <p>在你需要的時候擁抱你、陪著你。</p>
+                    <p>生日快樂，也謝謝你願意靠近我。</p>
+                    <span class="mt-16 block font-bold text-3xl tracking-widest text-[var(--moonlight)]">—— 你的那片海 JT</span>
+                </div>
+                <div class="flex justify-center gap-12 mt-24">
+                    <span class="cursor-pointer opacity-30 hover:opacity-100 transition-all transform hover:scale-150 text-4xl" onclick="showToast('彩蛋 A：快去抱抱他吧 🐱')">🐱</span>
+                    <span class="cursor-pointer opacity-30 hover:opacity-100 transition-all transform hover:scale-150 text-4xl" onclick="showToast('彩蛋 C：妳是我最喜歡的航線 ✨')">✨</span>
+                    <span class="cursor-pointer opacity-30 hover:opacity-100 transition-all transform hover:scale-150 text-4xl" onclick="showToast('彩蛋 B：愛妳唷 ❤️')">❤️</span>
+                </div>
+                <button class="mt-28 text-[0.7rem] opacity-20 uppercase tracking-[0.5em] hover:opacity-100 transition" onclick="location.reload()">RE-EXPLORE THE SEA</button>
+            </div>
+        </div>
+    </main>
 
     <script>
-        // --- 通關密碼設定 ---
-        // 請把 "1234" 改成你們的紀念日或她的生日
-        const myPassword = "1234"; 
-        
-        const userEntry = prompt("請輸入通關密碼（我們的紀念日）：");
+        const state = {
+            chosenDessert: "",
+            chosenValues: [],
+            catAIdx: 0, catBIdx: 0,
+            starClicks: 0,
+            catAClicks: 0, catBClicks: 0
+        };
 
-        if (userEntry === myPassword) {
-            // 密碼正確，顯示內容
-            document.getElementById('main-content').style.display = 'block';
-        } else {
-            // 密碼錯誤
-            alert("密碼不對喔，再試一次！");
-            location.reload(); // 重新整理頁面讓她重填
+        const catALines = ["喵：我只是路過，順便當你的副隊長。", "喵：我有一種預感…你會迷路。", "喵：如果有寶藏，先寫我名字。"];
+        const catBLines = ["喵：我們要去哪？可以先吃罐罐嗎？", "喵：我負責可愛，你負責努力。", "喵：前方有危險…但我忘了是哪裡。"];
+
+        // 視覺特效控制器 (Visual FX)
+        const FX = {
+            spawn(type, count) {
+                const layer = document.getElementById('fx-layer');
+                if(type === 'clear') { layer.innerHTML = ""; return; }
+                for(let i=0; i<count; i++) {
+                    const el = document.createElement('div');
+                    el.style.left = `${Math.random() * 100}vw`;
+                    el.style.animationDelay = `${Math.random() * 5}s`;
+                    if(type === 'creature') {
+                        el.className = 'sea-creature';
+                        el.innerHTML = `<svg width="${Math.random()*60+40}" height="40" viewBox="0 0 100 40" fill="var(--moonlight)"><path d="M0 20 C20 0, 80 0, 100 20 C80 40, 20 40, 0 20"/></svg>`;
+                        el.style.top = `${Math.random() * 80}vh`;
+                        el.style.animationDuration = `${Math.random() * 15 + 15}s`;
+                    } else if(type === 'rain') {
+                        el.className = 'rain';
+                        el.style.animationDuration = `${Math.random() * 0.5 + 0.5}s`;
+                    } else if(type === 'bubble') {
+                        el.className = 'bubble';
+                        el.style.width = el.style.height = `${Math.random()*20+5}px`;
+                        el.style.animationDuration = `${Math.random()*5+5}s`;
+                    } else if(type === 'gold') {
+                        el.className = 'gold-dust';
+                        el.style.width = el.style.height = `${Math.random()*4+1}px`;
+                        el.style.animationDuration = `${Math.random()*8+4}s`;
+                    }
+                    layer.appendChild(el);
+                }
+            },
+            lightning() {
+                const fx = document.getElementById('lightning-fx');
+                fx.classList.remove('flash-active'); void fx.offsetWidth;
+                fx.classList.add('flash-active');
+            },
+            levelClear() {
+                const b = document.getElementById('clear-banner');
+                b.classList.remove('banner-active'); void b.offsetWidth;
+                b.classList.add('banner-active');
+                document.body.classList.add('shake');
+                setTimeout(() => document.body.classList.remove('shake'), 500);
+            }
+        };
+
+        function typewriter(id, lines, delay = 40, callback) {
+            const target = document.getElementById(id);
+            target.innerHTML = "";
+            let l = 0, c = 0;
+            function type() {
+                if(l < lines.length) {
+                    if(c < lines[l].length) {
+                        target.innerHTML += lines[l].charAt(c);
+                        c++; setTimeout(type, delay);
+                    } else {
+                        target.innerHTML += "<br>"; l++; c = 0; setTimeout(type, 600);
+                    }
+                } else if(callback) callback();
+            }
+            type();
         }
+
+        function nextScene(id) {
+            document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(`scene-${id === 'final' ? 'final' : id}`);
+            target.classList.add('active');
+
+            document.body.className = "style-calm";
+            document.getElementById('storm-overlay').style.opacity = "0";
+            FX.spawn('clear');
+            FX.spawn('creature', 3);
+
+            if (id === 3) {
+                const script = [
+                    "113 年 2 月 17 日。",
+                    "你，扮演一位探險家，帶著一張神秘的海圖，",
+                    "穿越茫茫大海後，來到這片未知的奇幻海域……",
+                    "在這裡，你將展開新的冒險，揭開這片海域的神秘面紗。",
+                    "",
+                    "這片海域與你過去見過的任何地方都不同。",
+                    "海面看似平靜，卻藏著無數細微的波動；",
+                    "柔軟，卻深不見底。",
+                    "",
+                    "你漸漸發現——這片海，並不只是海。",
+                    "它更像是一個人的內心，有時安靜、有時洶湧，",
+                    "卻始終溫柔地存在著。",
+                    "",
+                    "而你的任務，並不是征服這片海域。",
+                    "而是靠近它、理解它，在浪潮與微光之間，",
+                    "發現那些只為你展開的風景。",
+                    "",
+                    "當然——這場探險，你並不孤單。",
+                    "你帶著兩位「可愛，但不一定可靠」的同伴……",
+                    "兩隻貓。（牠們堅稱自己是專業探險隊。）"
+                ];
+                typewriter('typewriter-box', script, 35, () => {
+                    document.getElementById('scene3-btn').classList.remove('hidden');
+                });
+            }
+
+            if (id === 'final') {
+                const lines = [
+                    "探索的終點，終於出現在眼前。",
+                    "在這片海域最深處，妳看見了一道朦朧的身影——",
+                    "靜靜地站在海與光的交界之中。",
+                    "他沒有靠近，卻始終存在於你的航線裡。",
+                    "像浪潮、像呼吸、像心跳。",
+                    "",
+                    "身影：",
+                    "「你終於來到了這裡。」",
+                    "「這片海域的秘密，只有一個人能真正揭開。」",
+                    "「那就是——你。」",
+                    "「你願意，和我一起揭開這片海的面紗嗎？」"
+                ];
+                typewriter('final-narrative', lines, 45, () => {
+                    document.getElementById('final-ui').classList.remove('hidden');
+                });
+            }
+        }
+
+        function checkPw1() {
+            if (document.getElementById('pw1').value === "0313") { FX.levelClear(); nextScene(2); }
+            else { document.getElementById('err1').innerText = "海面沒有反應……再想想？"; }
+        }
+        function checkPw2() {
+            if (document.getElementById('pw2').value === "0417") { FX.levelClear(); nextScene(3); }
+            else { document.getElementById('err2').innerText = "你聽見遠方有貓叫聲：「喵…答錯了啦。」"; }
+        }
+
+        function catSpeech(type) {
+            if(type === 'A') {
+                state.catAIdx = (state.catAIdx + 1) % catALines.length;
+                document.getElementById('catA-msg').innerText = catALines[state.catAIdx];
+            } else {
+                state.catBIdx = (state.catBIdx + 1) % catBLines.length;
+                document.getElementById('catB-msg').innerText = catBLines[state.catBIdx];
+            }
+        }
+        function catEgg(type) { if(type==='A') state.catAClicks++; else state.catBClicks++; if(state.catAClicks+state.catBClicks >= 5) showToast("喵：好啦好啦，快去抱抱他。 😼"); }
+
+        function runQuest(idx) {
+            const stage = document.getElementById('quest-stage');
+            stage.innerHTML = "";
+            nextScene(5);
+
+            if (idx === 1) {
+                typewriter('quest-stage', ["任務 1：補給品選擇", "在即將出發之前，你必須帶上這次冒險所需的糧食。", "以下是你手邊可取得的。"], 35, () => {
+                    stage.innerHTML += `
+                        <div class="dessert-grid">
+                            <div class="dessert-card" onclick="pickFood('泡芙', this)"><img src="https://images.unsplash.com/photo-1628114513681-36f7da65b53d?w=300" alt="泡芙"></div>
+                            <div class="dessert-card" onclick="pickFood('布朗尼', this)"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300" alt="布朗尼"></div>
+                            <div class="dessert-card" onclick="pickFood('草莓蛋糕', this)"><img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=300" alt="草莓蛋糕"></div>
+                            <div class="dessert-card" onclick="pickFood('鬆餅', this)"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7bb7445?w=300" alt="鬆餅"></div>
+                        </div><div id="q1-fb" class="mt-4 text-center"></div>`;
+                });
+            } else if (idx === 2) {
+                typewriter('quest-stage', ["任務 2：海上的聲音", "航行途中，妳靜下心來，聽見海風與浪潮之間，", "似乎夾雜著某種熟悉的聲音……妳最常聽見的是？"], 35, () => {
+                    stage.innerHTML += `
+                        <div class="flex flex-col gap-3 mt-6">
+                            <button class="btn-game" onclick="q2Resp('還好')">還好</button>
+                            <button class="btn-game" onclick="q2Resp('還可以')">還可以</button>
+                            <button class="btn-game" onclick="q2Resp('還行')">還行</button>
+                            <button class="btn-game" onclick="q2Resp('我愛你')">我愛你</button>
+                        </div><div id="q2-fb" class="mt-6 text-center italic text-[var(--gold)] min-h-[1.5rem]"></div>`;
+                });
+            } else if (idx === 3) {
+                document.body.className = "style-storm";
+                document.getElementById('storm-overlay').style.opacity = "1";
+                FX.spawn('rain', 60);
+                const sLoop = setInterval(() => { if(document.body.className!=="style-storm") clearInterval(sLoop); else { FX.lightning(); } }, 4000);
+                typewriter('quest-stage', ["任務 3：風暴之地", "風向變得混亂，海面開始不安地起伏。", "妳來到了一片氣氛緊繃的未知地帶。妳會選擇——"], 35, () => {
+                    stage.innerHTML += `
+                        <div class="flex flex-col gap-3 mt-6">
+                            <button class="btn-game" onclick="q3Resp()">冷戰</button>
+                            <button class="btn-game" onclick="q3Resp()">大聲咆嘯</button>
+                            <button class="btn-game" onclick="q3Resp()">直接開扁</button>
+                        </div>`;
+                });
+            } else if (idx === 4) {
+                FX.spawn('clear'); FX.spawn('bubble', 25);
+                typewriter('quest-stage', ["任務 4：深海之下", "海面總是看起來平靜，卻沒人真正知道深海下藏著什麼。", "若想真正理解這片海，妳覺得最需要的是？"], 35, () => {
+                    stage.innerHTML += `
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <label class="btn-game flex items-center justify-center gap-2"><input type="checkbox" value="勇氣"> 勇氣</label>
+                            <label class="btn-game flex items-center justify-center gap-2"><input type="checkbox" value="耐心"> 耐心</label>
+                            <label class="btn-game flex items-center justify-center gap-2"><input type="checkbox" value="好奇心"> 好奇心</label>
+                            <label class="btn-game flex items-center justify-center gap-2"><input type="checkbox" value="溫柔"> 溫柔</label>
+                        </div>
+                        <button class="btn-game w-full mt-10" onclick="q4Done()">沉入深海...</button>`;
+                });
+            }
+        }
+
+        function pickFood(name, el) {
+            state.chosenDessert = name;
+            document.querySelectorAll('.dessert-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('q1-fb').innerHTML = `<p>你選擇了「${name}」當作補給品來踏上冒險。</p><p class="text-[var(--pink-purple)] mt-1">喵：這個選擇不錯！我都想吃了。</p><button class="btn-game mt-6 w-full" onclick="runQuest(2)">下一個任務</button>`;
+        }
+
+        function q2Resp(v) {
+            const fb = document.getElementById('q2-fb');
+            if (v === '我愛你') { FX.levelClear(); fb.innerText = "…… 對。 就是這個。"; setTimeout(() => runQuest(3), 1500); }
+            else { 
+                const ms = { '還好': "真的還好。但還好不是這個。", '還可以': "我知道還可以，但還可以選別的。", '還行': "還行，但 好像還是不行。" };
+                fb.innerText = ms[v];
+                setTimeout(() => fb.innerText = "", 1500);
+            }
+        }
+
+        function q3Resp() {
+            const stage = document.getElementById('quest-stage');
+            stage.innerHTML = "";
+            typewriter('quest-stage', ["在任何旅程中，衝突與風浪都無法避免。", "有時候會沉默，有時候會情緒上來，甚至會說出不那麼溫柔的話。", "但——最終，都會走回彼此身邊。"], 40, () => {
+                stage.innerHTML += `<button class="btn-game mt-8 w-full" onclick="runQuest(4)">下一個任務</button>`;
+            });
+        }
+
+        function q4Done() {
+            const checked = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value);
+            state.chosenValues = checked;
+            const valStr = checked.length > 0 ? `但記得妳說過，妳會用(${checked.join(')、(')})來探索。` : "";
+            const stage = document.getElementById('quest-stage');
+            stage.innerHTML = "";
+            typewriter('quest-stage', ["靠近一片海，從來都不是簡單的事。", "但只要願意理解——那片海，終究會為妳變得透明。", valStr], 40, () => {
+                stage.innerHTML += `<button class="btn-game mt-8 w-full" onclick="nextScene('final')">前往海域核心</button>`;
+            });
+        }
+
+        function checkFinal() {
+            const ans = document.getElementById('final-ans').value;
+            if (ans === "奇美" || ans === "奇美博物館") {
+                FX.levelClear(); nextScene(6);
+                const script = [
+                    "恭喜你，探索完這片神秘海域。",
+                    "但……",
+                    "你以為你找到了這片海，其實——",
+                    "我也在人海中找到了你。",
+                    "如果未來也有風浪，我想把我的手，放在你手上。",
+                    "探險還沒結束。你願意繼續陪我航行嗎？"
+                ];
+                typewriter('ending-narrative', script, 50, () => { document.getElementById('ending-ui').classList.remove('hidden'); });
+            } else { showToast("海面起了霧，再想一下。"); }
+        }
+
+        function handleWait() {
+            const btn = document.getElementById('think-btn');
+            btn.innerText = "……";
+            setTimeout(() => { 
+                btn.innerText = "我願意"; 
+                btn.onclick = triggerEnding;
+                showToast("喵：裝什麼猶豫 😼");
+            }, 1500);
+        }
+
+        function triggerEnding() {
+            nextScene('blessing');
+            const lines = [`對了，關於你選的那份補給品——`, `下次，我帶你去吃「${state.chosenDessert}」。` ];
+            typewriter('recall-area', lines, 50, () => {
+                setTimeout(() => {
+                    document.getElementById('recall-area').classList.add('hidden');
+                    document.getElementById('blessing-area').classList.remove('hidden');
+                    document.body.className = "style-dawn";
+                    FX.spawn('gold', 40);
+                }, 3000);
+            });
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast-msg');
+            t.innerText = msg; t.style.opacity = "1";
+            setTimeout(() => t.style.opacity = "0", 3000);
+        }
+
+        window.onload = () => {
+            FX.spawn('creature', 3);
+            const title = document.getElementById('final-title');
+            let timer;
+            title.onmousedown = () => timer = setTimeout(() => showToast("其實我練習了很多次，才敢把這頁給你。"), 2000);
+            title.onmouseup = () => clearTimeout(timer);
+        };
     </script>
 </body>
 </html>
