@@ -697,7 +697,7 @@
     function q4Done() {
       const checked = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value);
       state.chosenValues = checked;
-      const valStr = checked.length > 0 ? `但記得妳說過，妳會用(${checked.join(')、(')})來探索。` : "";
+      const valStr = checked.length > 0 ? `但記得妳說過，妳會用${checked.join(')、(')}來探索。` : "";
 
       const stage = document.getElementById('quest-stage');
       stage.innerHTML = "";
