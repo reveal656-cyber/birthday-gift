@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🌊 未知海域 · 禁航區</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Cinzel:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -26,12 +25,8 @@
       background-color: var(--bg-deep);
       color: var(--text-main);
       font-family: 'Noto Sans TC', sans-serif;
-      margin: 0;
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin: 0; overflow: hidden; height: 100vh;
+      display: flex; justify-content: center; align-items: center;
       transition: background 2s ease-in-out;
     }
 
@@ -49,10 +44,7 @@
     .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
     .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
     .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
-    @keyframes move-forever {
-      0% { transform: translate3d(-90px,0,0); }
-      100% { transform: translate3d(85px,0,0); }
-    }
+    @keyframes move-forever { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
 
     /* 2. 風暴雨滴與雷擊 */
     .storm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); opacity: 0; transition: 1s; z-index: 5; pointer-events: none; }
@@ -62,111 +54,63 @@
 
     /* 3. 金粉特效 (祝褔專用) */
     .gold-dust { position: absolute; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); pointer-events: none; animation: gold-fall linear forwards; }
-    @keyframes gold-fall {
-      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.8; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
+    @keyframes gold-fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
     /* --------------------------------------------------
         UI 核心組件 (RPG & Adventure Style)
        -------------------------------------------------- */
     .glass-card {
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(124, 214, 255, 0.2);
-      border-radius: 40px;
-      padding: 3rem;
-      width: 90%;
-      max-width: 520px;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(124, 214, 255, 0.2); border-radius: 40px;
+      padding: 3rem; width: 90%; max-width: 520px;
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(124, 214, 255, 0.05);
-      position: relative;
-      z-index: 10;
+      position: relative; z-index: 10;
     }
 
     .title-font { font-family: 'Cinzel', serif; letter-spacing: 0.2em; }
-    .mono-font { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-
     .glow-text { text-shadow: 0 0 15px var(--moonlight); color: var(--moonlight); }
     .gold-text { text-shadow: 0 0 15px var(--gold); color: var(--gold); }
 
     .btn-game {
       background: rgba(124, 214, 255, 0.05);
-      border: 2px solid var(--moonlight);
-      color: var(--moonlight);
-      padding: 0.8rem 2.5rem;
-      border-radius: 100px;
-      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
-      font-weight: bold;
-      position: relative;
-      overflow: hidden;
+      border: 2px solid var(--moonlight); color: var(--moonlight);
+      padding: 0.8rem 2.5rem; border-radius: 100px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer; font-weight: bold; position: relative; overflow: hidden;
       letter-spacing: 1px;
     }
     .btn-game:hover {
-      background: var(--moonlight);
-      color: var(--bg-deep);
-      box-shadow: 0 0 30px var(--moonlight);
-      transform: translateY(-5px) scale(1.05);
+      background: var(--moonlight); color: var(--bg-deep);
+      box-shadow: 0 0 30px var(--moonlight); transform: translateY(-5px) scale(1.05);
     }
     .btn-game:active { transform: translateY(2px); }
 
     .input-game {
-      background: rgba(0,0,0,0.5);
-      border-bottom: 2px solid var(--moonlight);
-      text-align: center;
-      width: 100%;
-      padding: 1.2rem;
-      outline: none;
-      color: var(--gold);
-      font-size: 1.8rem;
-      margin: 1.5rem 0;
+      background: rgba(0,0,0,0.5); border-bottom: 2px solid var(--moonlight);
+      text-align: center; width: 100%; padding: 1.2rem;
+      outline: none; color: var(--gold); font-size: 1.8rem; margin: 1.5rem 0;
       transition: 0.3s;
     }
     .input-game:focus { border-bottom-color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
     /* 貓咪對話框生動動畫 */
     .cat-dialogue {
-      position: relative;
-      background: #fff;
-      color: #071A2B;
-      padding: 14px 20px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-weight: 600;
-      animation: float 3s ease-in-out infinite;
+      position: relative; background: #fff; color: #071A2B;
+      padding: 14px 20px; border-radius: 20px; font-size: 0.9rem;
+      margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      min-height: 60px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-weight: 600; animation: float 3s ease-in-out infinite;
     }
     .cat-dialogue::after {
-      content: '';
-      position: absolute;
-      bottom: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 12px 12px 0;
-      border-style: solid;
-      border-color: #fff transparent transparent;
+      content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+      border-width: 12px 12px 0; border-style: solid; border-color: #fff transparent transparent;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
     .dessert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 25px 0; }
     .dessert-card {
-      border-radius: 24px;
-      border: 4px solid transparent;
-      overflow: hidden;
-      cursor: pointer;
-      transition: 0.4s;
-      height: 140px;
+      border-radius: 24px; border: 4px solid transparent;
+      overflow: hidden; cursor: pointer; transition: 0.4s; height: 140px;
       background: #000;
     }
     .dessert-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
@@ -176,25 +120,13 @@
     /* 全域過渡動畫 */
     .scene { display: none; }
     .scene.active { display: block; animation: scene-fade-up 0.8s forwards; }
-    @keyframes scene-fade-up {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes scene-fade-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
     .toast {
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--gold);
-      color: #000;
-      padding: 12px 30px;
-      border-radius: 100px;
-      font-weight: 800;
-      opacity: 0;
-      z-index: 100;
-      pointer-events: none;
-      transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: fixed; top: 20%; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: #000; padding: 12px 30px;
+      border-radius: 100px; font-weight: 800; opacity: 0; z-index: 100;
+      pointer-events: none; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 15px 40px rgba(247,215,122,0.4);
     }
 
@@ -207,26 +139,12 @@
 
     /* 螢幕抖動 (雷擊用) */
     .shake-screen { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
-    @keyframes shake {
-      10%, 90% { transform: translate3d(-2px, 0, 0); }
-      20%, 80% { transform: translate3d(4px, 0, 0); }
-      30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
-      40%, 60% { transform: translate3d(8px, 0, 0); }
-    }
+    @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-8px, 0, 0); } 40%, 60% { transform: translate3d(8px, 0, 0); } }
 
     .level-clear-banner {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 5rem;
-      font-family: 'Cinzel';
-      font-weight: 900;
-      color: var(--gold);
-      text-shadow: 0 0 30px var(--gold);
-      opacity: 0;
-      z-index: 100;
-      pointer-events: none;
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-size: 5rem; font-family: 'Cinzel'; font-weight: 900; color: var(--gold);
+      text-shadow: 0 0 30px var(--gold); opacity: 0; z-index: 100; pointer-events: none;
     }
     .banner-pop { animation: banner-pop 1.5s ease-out forwards; }
     @keyframes banner-pop {
@@ -242,14 +160,12 @@
   <div id="fx-layer"></div>
   <div id="storm-overlay" class="storm-overlay"></div>
   <div id="lightning-flash" class="lightning-flash"></div>
-  <div id="level-clear" class="level-clear-banner">EXPLORED</div>
+  <div id="level-clear" class="level-clear-banner">成功解鎖</div>
   <div id="toast-msg" class="toast"></div>
 
   <div class="waves-container">
     <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-      <defs>
-        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-      </defs>
+      <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
       <g class="parallax">
         <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(12, 45, 74, 0.7)" />
         <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(11, 45, 74, 0.5)" />
@@ -260,14 +176,11 @@
   </div>
 
   <main class="glass-card" id="game-container">
-
     <div id="scene-0" class="scene active text-center">
       <div class="mb-10 flex justify-center opacity-90">
         <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="var(--moonlight)" stroke-width="1" class="animate-[spin_20s_linear_infinite]">
-          <circle cx="12" cy="12" r="10" />
-          <path d="m16.24 7.76-1.41 4.25-4.25 1.41 1.41-4.25 4.25-1.41Z" />
-          <circle cx="12" cy="12" r="0.5" fill="currentColor" />
-          <path d="M12 2v2M12 20v2M2 12h2M20 12h2" stroke-opacity="0.5" />
+          <circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.41 4.25-4.25 1.41 1.41-4.25 4.25-1.41Z"/><circle cx="12" cy="12" r="0.5" fill="currentColor"/>
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2" stroke-opacity="0.5"/>
         </svg>
       </div>
       <h1 class="text-3xl sm:text-4xl mb-4 title-font font-bold glow-text whitespace-nowrap">🌊 未知海域 · 禁航區 🌊</h1>
@@ -278,7 +191,7 @@
     <div id="scene-1" class="scene text-center">
       <h2 class="text-2xl mb-8 title-font glow-text">航海檢定 I</h2>
       <p class="text-sm mb-2 opacity-80">請輸入生日四碼</p>
-      <input type="password" id="pw1" class="input-game" maxlength="4" autocomplete="off" placeholder="••••" />
+      <input type="password" id="pw1" class="input-game" maxlength="4" autocomplete="off" placeholder="••••">
       <div id="err1" class="text-xs text-[var(--err-red)] h-4 font-bold mb-6"></div>
       <button class="btn-game" onclick="checkPw1()">確認指令</button>
     </div>
@@ -286,7 +199,7 @@
     <div id="scene-2" class="scene text-center">
       <h2 class="text-2xl mb-8 title-font glow-text">航海檢定 II</h2>
       <p class="text-sm mb-2 opacity-80">請輸入對方生日（四碼）</p>
-      <input type="password" id="pw2" class="input-game" maxlength="4" autocomplete="off" placeholder="••••" />
+      <input type="password" id="pw2" class="input-game" maxlength="4" autocomplete="off" placeholder="••••">
       <div id="err2" class="text-xs text-[var(--err-red)] h-4 font-bold mb-6"></div>
       <button class="btn-game" onclick="checkPw2()">啟動入口</button>
     </div>
@@ -307,18 +220,17 @@
           </div>
           <div class="relative group">
             <div class="absolute inset-0 bg-moonlight blur-lg opacity-0 group-hover:opacity-40 transition rounded-full"></div>
-            <img src="./images/catA.jpg" class="w-28 h-28 rounded-full border-4 border-[var(--moonlight)] relative z-10 shadow-2xl cursor-pointer hover:scale-110 transition object-cover" onclick="catEgg('A')" />
+            <img src="./images/catA.jpg" class="w-28 h-28 rounded-full border-4 border-[var(--moonlight)] relative z-10 shadow-2xl cursor-pointer hover:scale-110 transition object-cover" onclick="catEgg('A')">
           </div>
           <p class="text-[0.7rem] mt-4 font-bold text-[var(--pink-purple)] tracking-widest bg-white/5 px-3 py-1 rounded-full">海圖守護者</p>
         </div>
-
         <div class="flex flex-col items-center w-1/2">
           <div class="cat-dialogue" onclick="catSpeech('B')">
             <span id="catB-msg" class="text-center">喵：我們要去哪？</span>
           </div>
           <div class="relative group">
             <div class="absolute inset-0 bg-moonlight blur-lg opacity-0 group-hover:opacity-40 transition rounded-full"></div>
-            <img src="./images/catB.jpg" class="w-28 h-28 rounded-full border-4 border-[var(--moonlight)] relative z-10 shadow-2xl cursor-pointer hover:scale-110 transition object-cover" onclick="catEgg('B')" />
+            <img src="./images/catB.jpg" class="w-28 h-28 rounded-full border-4 border-[var(--moonlight)] relative z-10 shadow-2xl cursor-pointer hover:scale-110 transition object-cover" onclick="catEgg('B')">
           </div>
           <p class="text-[0.7rem] mt-4 font-bold text-[var(--pink-purple)] tracking-widest bg-white/5 px-3 py-1 rounded-full">浪花偵察員</p>
         </div>
@@ -335,15 +247,15 @@
     <div id="scene-final" class="scene text-center">
       <div class="mb-8 flex justify-center">
         <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" class="animate-pulse">
-          <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" />
-          <circle cx="12" cy="12" r="11" stroke-dasharray="2 4" />
+          <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"/>
+          <circle cx="12" cy="12" r="11" stroke-dasharray="2 4"/>
         </svg>
       </div>
       <h2 id="final-title" class="text-3xl mb-8 title-font gold-text font-bold">海域核心 · 未知之境</h2>
       <div id="final-narrative" class="text-[0.95rem] mb-10 leading-loose text-left"></div>
       <div id="final-ui" class="hidden">
         <p class="text-sm mb-4 opacity-80">屬於我們的 回憶之地 是？</p>
-        <input type="text" id="final-ans" class="input-game" placeholder="在此輸入答案" />
+        <input type="text" id="final-ans" class="input-game" placeholder="在此輸入答案">
         <button class="btn-game" onclick="checkFinal()">揭開面紗 REVEAL</button>
       </div>
     </div>
@@ -374,7 +286,6 @@
         <button class="mt-24 text-[0.7rem] opacity-20 uppercase tracking-[0.5em] hover:opacity-100 transition" onclick="location.reload()">RE-EXPLORE THE SEA</button>
       </div>
     </div>
-
   </main>
 
   <script>
@@ -382,40 +293,37 @@
       chosenDessert: "",
       chosenValues: [],
       catAIdx: 0, catBIdx: 0,
-      catAClicks: 0, catBClicks: 0
+      catAClicks: 0, catBClicks: 0,
+      q3Choice: "" // ← 任務3玩家選擇
     };
 
-    const catALines = [
-      "喵：我只是路過，順便當你的副隊長。",
-      "喵：我有一種預感…你會迷路。",
-      "喵：如果有寶藏，先寫我名字。"
-    ];
-    const catBLines = [
-      "喵：我們要去哪？可以先吃罐罐嗎？",
-      "喵：我負責可愛，你負責努力。",
-      "喵：前方有危險…但我忘了是哪裡。"
-    ];
+    const catALines = ["喵：我只是路過，順便當你的副隊長。", "喵：我有一種預感…你會迷路。", "喵：如果有寶藏，先寫我名字。"];
+    const catBLines = ["喵：我們要去哪？可以先吃罐罐嗎？", "喵：我負責可愛，你負責努力。", "喵：前方有危險…但我忘了是哪裡。"];
 
-    // 風暴 interval 控制（避免切場景後還一直打雷）
-    let stormIntervalId = null;
+    // 風暴 interval 管理（避免離開風暴後還在亂閃）
+    let stormInterval = null;
+    function stopStorm() {
+      if (stormInterval) {
+        clearInterval(stormInterval);
+        stormInterval = null;
+      }
+    }
 
     // 視覺特效控制器
     const FX = {
-      clear() {
-        document.getElementById('fx-layer').innerHTML = "";
-      },
+      clear() { document.getElementById('fx-layer').innerHTML = ""; },
 
       rain(active) {
         const layer = document.getElementById('fx-layer');
-        if (!active) return;
-        for (let i = 0; i < 80; i++) {
+        if(!active) return;
+        for(let i=0; i<80; i++) {
           const r = document.createElement('div');
           r.className = 'rain-drop';
           r.style.left = Math.random() * 100 + 'vw';
           r.style.top = Math.random() * -100 + 'vh';
           r.style.opacity = Math.random() * 0.5 + 0.2;
-          r.style.animationDuration = (Math.random() * 0.5 + 0.4) + 's';
-          r.style.animationDelay = (Math.random() * 2) + 's';
+          r.style.animationDuration = Math.random() * 0.5 + 0.4 + 's';
+          r.style.animationDelay = Math.random() * 2 + 's';
           layer.appendChild(r);
         }
       },
@@ -433,22 +341,24 @@
 
       goldDust() {
         const layer = document.getElementById('fx-layer');
-        for (let i = 0; i < 50; i++) {
+        for(let i=0; i<50; i++) {
           setTimeout(() => {
             const d = document.createElement('div');
             d.className = 'gold-dust';
             const size = Math.random() * 5 + 2;
             d.style.width = d.style.height = size + 'px';
             d.style.left = Math.random() * 100 + 'vw';
-            d.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            d.style.animationDuration = Math.random() * 3 + 4 + 's';
             layer.appendChild(d);
             setTimeout(() => d.remove(), 7000);
           }, i * 150);
         }
       },
 
-      levelClear() {
+      // ✅ 改成可傳文字，且預設「成功解鎖」
+      levelClear(text = "成功解鎖") {
         const b = document.getElementById('level-clear');
+        b.textContent = text;
         b.classList.remove('banner-pop');
         void b.offsetWidth;
         b.classList.add('banner-pop');
@@ -459,45 +369,29 @@
       const target = document.getElementById(id);
       target.innerHTML = "";
       let l = 0, c = 0;
-
       function type() {
-        if (l < lines.length) {
-          if (c < lines[l].length) {
+        if(l < lines.length) {
+          if(c < lines[l].length) {
             target.innerHTML += lines[l].charAt(c);
-            c++;
-            setTimeout(type, delay);
+            c++; setTimeout(type, delay);
           } else {
-            target.innerHTML += "<br>";
-            l++;
-            c = 0;
-            setTimeout(type, 600);
+            target.innerHTML += "<br>"; l++; c = 0; setTimeout(type, 600);
           }
-        } else if (callback) callback();
-
+        } else if(callback) callback();
         target.scrollTop = target.scrollHeight;
       }
-
       type();
     }
 
-    function stopStorm() {
-      if (stormIntervalId) {
-        clearInterval(stormIntervalId);
-        stormIntervalId = null;
-      }
-    }
-
     function nextScene(id) {
-      // 停掉風暴 interval
-      stopStorm();
-
       document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-      const target = document.getElementById(
-        id === 'final' ? 'scene-final' : (id === 'blessing' ? 'scene-blessing' : `scene-${id}`)
-      );
+      const target = document.getElementById(id === 'final' ? 'scene-final' : (id === 'blessing' ? 'scene-blessing' : `scene-${id}`));
       target.classList.add('active');
 
-      if (id !== 5) {
+      // 離開任務5（quest畫面）時，清掉風暴 interval，避免殘留
+      if (id !== 5) stopStorm();
+
+      if(id !== 5) {
         document.body.className = "style-calm";
         document.getElementById('storm-overlay').style.opacity = "0";
         FX.clear();
@@ -551,23 +445,17 @@
     }
 
     function checkPw1() {
-      if (document.getElementById('pw1').value === "0313") {
-        FX.levelClear(); nextScene(2);
-      } else {
-        document.getElementById('err1').innerText = "海面沒有反應……再想想？";
-      }
+      if (document.getElementById('pw1').value === "0313") { FX.levelClear("成功解鎖"); nextScene(2); }
+      else { document.getElementById('err1').innerText = "海面沒有反應……再想想？"; }
     }
 
     function checkPw2() {
-      if (document.getElementById('pw2').value === "0417") {
-        FX.levelClear(); nextScene(3);
-      } else {
-        document.getElementById('err2').innerText = "你聽見遠方有貓叫聲：「喵…答錯了啦。」";
-      }
+      if (document.getElementById('pw2').value === "0417") { FX.levelClear("成功解鎖"); nextScene(3); }
+      else { document.getElementById('err2').innerText = "你聽見遠方有貓叫聲：「喵…答錯了啦。」"; }
     }
 
     function catSpeech(type) {
-      if (type === 'A') {
+      if(type === 'A') {
         state.catAIdx = (state.catAIdx + 1) % catALines.length;
         document.getElementById('catA-msg').innerText = catALines[state.catAIdx];
       } else {
@@ -577,9 +465,8 @@
     }
 
     function catEgg(type) {
-      if (type === 'A') state.catAClicks++;
-      else state.catBClicks++;
-      if (state.catAClicks + state.catBClicks >= 5) showToast("喵：好啦好啦，快去抱抱他。 😼");
+      if(type==='A') state.catAClicks++; else state.catBClicks++;
+      if(state.catAClicks+state.catBClicks >= 5) showToast("喵：好啦好啦，快去抱抱他。 😼");
     }
 
     function runQuest(idx) {
@@ -596,10 +483,8 @@
               <div class="dessert-card" onclick="pickFood('草莓蛋糕', this)"><img src="./images/D3.jpg" alt="草莓蛋糕"></div>
               <div class="dessert-card" onclick="pickFood('鬆餅', this)"><img src="./images/D4.jpg" alt="鬆餅"></div>
             </div>
-            <div id="q1-fb" class="mt-4 text-center"></div>
-          `;
+            <div id="q1-fb" class="mt-4 text-center"></div>`;
         });
-
       } else if (idx === 2) {
         typewriter('quest-stage', ["任務 2：海上的聲音", "航行途中，妳靜下心來，聽見海風與浪潮之間，", "似乎夾雜著某種熟悉的聲音……妳最常聽見的是？"], 35, () => {
           stage.innerHTML += `
@@ -609,32 +494,29 @@
               <button class="btn-game" onclick="q2Resp('還行')">還行</button>
               <button class="btn-game" onclick="q2Resp('我愛你')">我愛你</button>
             </div>
-            <div id="q2-fb" class="mt-8 text-center italic gold-text min-h-[1.5rem] font-bold"></div>
-          `;
+            <div id="q2-fb" class="mt-8 text-center italic gold-text min-h-[1.5rem] font-bold"></div>`;
         });
-
       } else if (idx === 3) {
         document.body.className = "style-storm";
         document.getElementById('storm-overlay').style.opacity = "1";
-        FX.clear();
         FX.rain(true);
 
-        // 這段現在會被 stopStorm() 正確清掉
-        stormIntervalId = setInterval(() => {
-          if (document.body.className !== "style-storm") stopStorm();
-          else if (Math.random() > 0.7) FX.lightning();
+        // ✅ 用全域 stormInterval 管理
+        stopStorm();
+        stormInterval = setInterval(() => {
+          if(document.body.className !== "style-storm") stopStorm();
+          else if(Math.random() > 0.7) FX.lightning();
         }, 2000);
 
         typewriter('quest-stage', ["任務 3：風暴之地", "風向變得混亂，海面開始不安地起伏。", "妳來到了一片氣氛緊繃的未知地帶。妳會選擇——"], 35, () => {
           stage.innerHTML += `
             <div class="flex flex-col gap-4 mt-8">
-              <button class="btn-game" onclick="q3Resp()">冷戰</button>
-              <button class="btn-game" onclick="q3Resp()">大聲咆嘯</button>
-              <button class="btn-game" onclick="q3Resp()">直接開扁</button>
+              <button class="btn-game" onclick="q3Pick('冷戰')">冷戰</button>
+              <button class="btn-game" onclick="q3Pick('大聲咆嘯')">大聲咆嘯</button>
+              <button class="btn-game" onclick="q3Pick('直接開扁')">直接開扁</button>
             </div>
-          `;
+            <div id="q3-confirm" class="mt-6 text-center"></div>`;
         });
-
       } else if (idx === 4) {
         typewriter('quest-stage', ["任務 4：深海之下", "海面總是看起來平靜，卻沒人真正知道深海下藏著什麼。", "若想真正理解這片海，妳覺得最需要的是？"], 35, () => {
           stage.innerHTML += `
@@ -644,8 +526,7 @@
               <label class="btn-game flex items-center justify-center gap-3"><input type="checkbox" value="好奇心"> 好奇心</label>
               <label class="btn-game flex items-center justify-center gap-3"><input type="checkbox" value="溫柔"> 溫柔</label>
             </div>
-            <button class="btn-game w-full mt-12" onclick="q4Done()">沉入深海...</button>
-          `;
+            <button class="btn-game w-full mt-12" onclick="q4Done()">沉入深海...</button>`;
         });
       }
     }
@@ -654,34 +535,36 @@
       state.chosenDessert = name;
       document.querySelectorAll('.dessert-card').forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
-
       document.getElementById('q1-fb').innerHTML = `
         <div class="animate-bounce mt-4">
           <p>你選擇了「${name}」作為冒險補給。</p>
           <p class="text-[var(--pink-purple)]">喵：這個好！我也想吃一口。</p>
         </div>
-        <button class="btn-game mt-8 w-full" onclick="runQuest(2)">下一個任務</button>
-      `;
+        <button class="btn-game mt-8 w-full" onclick="runQuest(2)">下一個任務</button>`;
     }
 
     function q2Resp(v) {
       const fb = document.getElementById('q2-fb');
       if (v === '我愛你') {
-        FX.levelClear();
+        // ✅ 不再顯示「成功解鎖」
         fb.innerText = "…… 對。 就是這個。";
         setTimeout(() => runQuest(3), 1500);
       } else {
-        const ms = {
-          '還好': "真的還好。但還好不是這個。",
-          '還可以': "我知道還可以，但還可以選別的。",
-          '還行': "還行，但好像還是不行。"
-        };
+        const ms = { '還好': "真的還好。但還好不是這個。", '還可以': "我知道還可以，但還可以選別的。", '還行': "還行，但好像還是不行。" };
         fb.innerText = ms[v];
         setTimeout(() => fb.innerText = "", 2000);
       }
     }
 
-    function q3Resp() {
+    // ✅ 任務3：先選 → 出現「確定？」 → 確定後才進下一段
+    function q3Pick(choice) {
+      state.q3Choice = choice;
+      const box = document.getElementById('q3-confirm');
+      if (!box) return;
+      box.innerHTML = `<button class="btn-game w-full" onclick="q3Confirm()">確定？</button>`;
+    }
+
+    function q3Confirm() {
       stopStorm();
       document.body.className = "style-calm";
       document.getElementById('storm-overlay').style.opacity = "0";
@@ -689,7 +572,12 @@
 
       const stage = document.getElementById('quest-stage');
       stage.innerHTML = "";
-      typewriter('quest-stage', ["在任何旅程中，衝突與風浪都無法避免。", "有時候會沉默，甚至會說出不那麼溫柔的話。", "但最終，我們都會走回彼此身邊。"], 40, () => {
+
+      typewriter('quest-stage', [
+        "在任何旅程中，衝突與風浪都無法避免。",
+        "有時候會沉默，甚至會說出不那麼溫柔的話。",
+        "但最終，我們都會走回彼此身邊。"
+      ], 40, () => {
         stage.innerHTML += `<button class="btn-game mt-10 w-full" onclick="runQuest(4)">下一個任務</button>`;
       });
     }
@@ -697,7 +585,9 @@
     function q4Done() {
       const checked = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value);
       state.chosenValues = checked;
-      const valStr = checked.length > 0 ? `但記得妳說過，妳會用${checked.join(')、(')}來探索。` : "";
+
+      // ✅ 移除括號，直接顯示「勇氣、耐心…」
+      const valStr = checked.length > 0 ? `但記得妳說過，妳會用${checked.join('、')}來探索。` : "";
 
       const stage = document.getElementById('quest-stage');
       stage.innerHTML = "";
@@ -709,7 +599,8 @@
     function checkFinal() {
       const ans = document.getElementById('final-ans').value;
       if (ans === "奇美" || ans === "奇美博物館") {
-        FX.levelClear(); nextScene(6);
+        // ✅ 不再顯示「成功解鎖」
+        nextScene(6);
         const script = [
           "恭喜你，探索完這片神秘海域。",
           "但……",
@@ -731,8 +622,7 @@
       const btn = document.getElementById('think-btn');
       btn.innerText = "……";
       setTimeout(() => {
-        btn.innerText = "我願意";
-        btn.classList.remove('underline', 'text-xs');
+        btn.innerText = "我願意"; btn.classList.remove('underline', 'text-xs');
         btn.classList.add('btn-game', 'text-xl');
         btn.onclick = triggerEnding;
         showToast("喵：別再傲嬌了啦 😼");
@@ -741,10 +631,7 @@
 
     function triggerEnding() {
       nextScene('blessing');
-      const lines = [
-        `對了，關於你選的那份補給品——`,
-        `下次，我帶你去吃「${state.chosenDessert}」吧！`
-      ];
+      const lines = [`對了，關於你選的那份補給品——`, `下次，我帶你去吃「${state.chosenDessert}」。` ];
       typewriter('recall-area', lines, 50, () => {
         setTimeout(() => {
           document.getElementById('recall-area').classList.add('hidden');
@@ -757,13 +644,8 @@
 
     function showToast(msg) {
       const t = document.getElementById('toast-msg');
-      t.innerText = msg;
-      t.style.opacity = "1";
-      t.style.top = "15%";
-      setTimeout(() => {
-        t.style.opacity = "0";
-        t.style.top = "20%";
-      }, 3000);
+      t.innerText = msg; t.style.opacity = "1"; t.style.top = "15%";
+      setTimeout(() => { t.style.opacity = "0"; t.style.top = "20%"; }, 3000);
     }
 
     // 彩蛋監聽
