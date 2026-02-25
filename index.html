@@ -30,12 +30,8 @@
       transition: background 2s ease-in-out;
     }
 
-    /* --------------------------------------------------
-        動態粒子與環境特效 (Environment FX)
-       -------------------------------------------------- */
     #fx-layer { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
 
-    /* 1. 動態海浪 (底層) */
     .waves-container { position: fixed; bottom: 0; width: 100%; height: 20vh; z-index: 1; pointer-events: none; }
     .waves { width: 100%; height: 100%; min-height: 100px; }
     .parallax > use { animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite; }
@@ -45,24 +41,22 @@
     .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
     @keyframes move-forever { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
 
-    /* 2. 風暴雨滴與雷擊 */
     .storm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); opacity: 0; transition: 1s; z-index: 5; pointer-events: none; }
     .lightning-flash { position: fixed; inset: 0; background: white; opacity: 0; z-index: 50; pointer-events: none; }
     .rain-drop { position: absolute; background: rgba(255,255,255,0.4); width: 1.5px; height: 40px; pointer-events: none; animation: rain-fall linear infinite; }
     @keyframes rain-fall { to { transform: translateY(110vh); } }
 
-    /* 3. 金粉特效 (祝褔專用) */
     .gold-dust { position: absolute; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); pointer-events: none; animation: gold-fall linear forwards; }
     @keyframes gold-fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-    /* --------------------------------------------------
-        UI 核心組件 (RPG & Adventure Style)
-       -------------------------------------------------- */
+    /* ✅ 外框加寬：這裡就是你說的外圍框線 */
     .glass-card {
       background: var(--card-bg);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(124, 214, 255, 0.2); border-radius: 40px;
-      padding: 3rem; width: 90%; max-width: 520px;
+      padding: 3rem;
+      width: 92%;
+      max-width: 680px; /* 原本 520px：加寬 */
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(124, 214, 255, 0.05);
       position: relative; z-index: 10;
     }
@@ -74,7 +68,8 @@
     .btn-game {
       background: rgba(124, 214, 255, 0.05);
       border: 2px solid var(--moonlight); color: var(--moonlight);
-      padding: 0.8rem 2.5rem; border-radius: 100px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 0.8rem 2.5rem; border-radius: 100px;
+      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer; font-weight: bold; position: relative; overflow: hidden;
       letter-spacing: 1px;
     }
@@ -84,6 +79,14 @@
     }
     .btn-game:active { transform: translateY(2px); }
 
+    /* ✅ 任務3選項「停留反白」用 */
+    .q3-choice.selected {
+      background: var(--moonlight);
+      color: var(--bg-deep);
+      box-shadow: 0 0 30px var(--moonlight);
+      transform: translateY(-2px) scale(1.03);
+    }
+
     .input-game {
       background: rgba(0,0,0,0.5); border-bottom: 2px solid var(--moonlight);
       text-align: center; width: 100%; padding: 1.2rem;
@@ -92,7 +95,6 @@
     }
     .input-game:focus { border-bottom-color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
-    /* 貓咪對話框 */
     .cat-dialogue {
       position: relative; background: #fff; color: #071A2B;
       padding: 14px 20px; border-radius: 20px; font-size: 0.9rem;
@@ -116,7 +118,6 @@
     .dessert-card:hover img { opacity: 1; transform: scale(1.1); }
     .dessert-card.selected { border-color: var(--gold); box-shadow: 0 0 35px var(--gold); transform: scale(1.1); }
 
-    /* 全域過渡動畫 */
     .scene { display: none; }
     .scene.active { display: block; animation: scene-fade-up 0.8s forwards; }
     @keyframes scene-fade-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
@@ -129,12 +130,10 @@
       box-shadow: 0 15px 40px rgba(247,215,122,0.4);
     }
 
-    /* 背景狀態 */
     .style-calm { background: radial-gradient(circle at center, #0B2D4A 0%, #020b14 100%); }
     .style-storm { background: #000; }
     .style-dawn { background: linear-gradient(180deg, #001524 0%, #1a759f 60%, #ffcfd2 100%); }
 
-    /* 螢幕抖動 (雷擊用) */
     .shake-screen { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
     @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-8px, 0, 0); } 40%, 60% { transform: translate3d(8px, 0, 0); } }
 
@@ -158,10 +157,7 @@
   <div id="fx-layer"></div>
   <div id="storm-overlay" class="storm-overlay"></div>
   <div id="lightning-flash" class="lightning-flash"></div>
-
-  <!-- ✅ 修改點 #3：改成「成功解鎖」 -->
   <div id="level-clear" class="level-clear-banner">成功解鎖</div>
-
   <div id="toast-msg" class="toast"></div>
 
   <div class="waves-container">
@@ -177,7 +173,6 @@
   </div>
 
   <main class="glass-card" id="game-container">
-
     <div id="scene-0" class="scene active text-center">
       <div class="mb-10 flex justify-center opacity-90">
         <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="var(--moonlight)" stroke-width="1" class="animate-[spin_20s_linear_infinite]">
@@ -290,7 +285,6 @@
         <button class="mt-24 text-[0.7rem] opacity-20 uppercase tracking-[0.5em] hover:opacity-100 transition" onclick="location.reload()">RE-EXPLORE THE SEA</button>
       </div>
     </div>
-
   </main>
 
   <script>
@@ -299,8 +293,6 @@
       chosenValues: [],
       catAIdx: 0, catBIdx: 0,
       catAClicks: 0, catBClicks: 0,
-
-      // ✅ 修改點 #1：任務3先選擇，再按確定
       q3Choice: ""
     };
 
@@ -352,7 +344,6 @@
         }
       },
 
-      // ✅ 修改點 #3：只給密碼用，顯示「成功解鎖」
       levelClear(text = "成功解鎖") {
         const b = document.getElementById('level-clear');
         b.textContent = text;
@@ -441,7 +432,6 @@
       }
     }
 
-    // ✅ 修改點 #3：只有這兩個密碼正確才跳「成功解鎖」
     function checkPw1() {
       if (document.getElementById('pw1').value === "0313") {
         FX.levelClear("成功解鎖");
@@ -519,12 +509,11 @@
         }, 2000);
 
         typewriter('quest-stage', ["任務 3：風暴之地", "風向變得混亂，海面開始不安地起伏。", "妳來到了一片氣氛緊繃的未知地帶。妳會選擇——"], 35, () => {
-          // ✅ 修改點 #1：按選項後先出現「確定？」
           stage.innerHTML += `
             <div class="flex flex-col gap-4 mt-8">
-              <button class="btn-game" onclick="q3Pick('冷戰')">冷戰</button>
-              <button class="btn-game" onclick="q3Pick('大聲咆嘯')">大聲咆嘯</button>
-              <button class="btn-game" onclick="q3Pick('直接開扁')">直接開扁</button>
+              <button class="btn-game q3-choice" onclick="q3Pick('冷戰', this)">冷戰</button>
+              <button class="btn-game q3-choice" onclick="q3Pick('大聲咆嘯', this)">大聲咆嘯</button>
+              <button class="btn-game q3-choice" onclick="q3Pick('直接開扁', this)">直接開扁</button>
             </div>
             <div id="q3-confirm" class="mt-8 text-center"></div>
           `;
@@ -562,7 +551,6 @@
     function q2Resp(v) {
       const fb = document.getElementById('q2-fb');
       if (v === '我愛你') {
-        // ✅ 修改點 #3：後面問題不要再跳「成功解鎖」
         fb.innerText = "…… 對。 就是這個。";
         setTimeout(() => runQuest(3), 1500);
       } else {
@@ -576,9 +564,15 @@
       }
     }
 
-    // ✅ 修改點 #1：任務3 選擇 → 顯示「確定？」
-    function q3Pick(choice) {
+    /* ✅ 修正：選項會停留反白（selected） */
+    function q3Pick(choice, el) {
       state.q3Choice = choice;
+
+      // 清除其他選項反白
+      document.querySelectorAll('.q3-choice').forEach(b => b.classList.remove('selected'));
+      // 目前選項反白
+      if (el) el.classList.add('selected');
+
       const box = document.getElementById('q3-confirm');
       if (!box) return;
       box.innerHTML = `
@@ -587,7 +581,6 @@
       `;
     }
 
-    // ✅ 修改點 #1：按「確定？」才真正往下
     function q3Confirm() {
       document.body.className = "style-calm";
       document.getElementById('storm-overlay').style.opacity = "0";
@@ -608,12 +601,7 @@
 
     function q4Done() {
       const checked = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value);
-      state.chosenValues = checked;
-
-      // ✅ 修改點 #2：移除括號，直接顯示文字（用「、」串起來）
-      const valStr = checked.length > 0
-        ? `但記得妳說過，妳會用${checked.join('、')}來探索。`
-        : "";
+      const valStr = checked.length > 0 ? `但記得妳說過，妳會用${checked.join('、')}來探索。` : "";
 
       const stage = document.getElementById('quest-stage');
       stage.innerHTML = "";
@@ -629,7 +617,6 @@
     function checkFinal() {
       const ans = document.getElementById('final-ans').value;
       if (ans === "奇美" || ans === "奇美博物館") {
-        // ✅ 修改點 #3：後面不要再跳「成功解鎖」
         nextScene(6);
         const script = [
           "恭喜你，探索完這片神秘海域。",
