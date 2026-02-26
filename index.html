@@ -80,7 +80,6 @@
     }
     .btn-game:active { transform: translateY(2px); }
 
-    /* ✅ 任務3選項「停留反白」用 */
     .q3-choice.selected {
       background: var(--moonlight);
       color: var(--bg-deep);
@@ -151,6 +150,12 @@
       80% { opacity: 1; transform: translate(-50%, -50%) scale(1); letter-spacing: 5px; }
       100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
     }
+    .scroll-box{
+      max-height: 45vh;
+      overflow-y: auto;
+      padding-right: 6px;
+      -webkit-overflow-scrolling: touch;
+   }
   </style>
 </head>
 
@@ -241,7 +246,7 @@
     </div>
 
     <div id="scene-5" class="scene">
-      <div id="quest-stage" class="text-[1rem] leading-relaxed text-left"></div>
+      <div id="quest-stage" class="scroll-box text-[1rem] leading-relaxed text-left"></div>
     </div>
 
     <div id="scene-final" class="scene text-center">
@@ -252,7 +257,7 @@
         </svg>
       </div>
       <h2 id="final-title" class="text-3xl mb-8 title-font gold-text font-bold">海域核心 · 未知之境</h2>
-      <div id="final-narrative" class="text-[0.95rem] mb-10 leading-loose text-left"></div>
+      <div id="final-narrative" class="scroll-box text-[0.95rem] mb-10 leading-loose text-left"></div>
       <div id="final-ui" class="hidden">
         <p class="text-sm mb-4 opacity-80">屬於我們的 回憶之地 是？</p>
         <input type="text" id="final-ans" class="input-game" placeholder="在此輸入答案">
@@ -261,7 +266,7 @@
     </div>
 
     <div id="scene-6" class="scene text-center">
-      <div id="ending-narrative" class="text-[1.05rem] leading-loose mb-12 text-left"></div>
+      <div id="ending-narrative" class="scroll-box text-[1.05rem] leading-loose mb-12 text-left"></div>
       <div id="ending-ui" class="hidden flex flex-col gap-6">
         <button class="btn-game text-xl" onclick="triggerEnding()">我願意</button>
         <button id="think-btn" class="text-xs text-[var(--text-sub)] underline opacity-50 hover:opacity-100 transition" onclick="handleWait()">我要先想一下</button>
@@ -269,7 +274,7 @@
     </div>
 
     <div id="scene-blessing" class="scene text-center">
-      <div id="recall-area" class="text-xl mb-12 font-bold glow-text"></div>
+      <div id="recall-area" class="scroll-box text-xl mb-12 font-bold glow-text"></div>
       <div id="blessing-area" class="hidden">
         <h1 class="text-2xl sm:text-3xl mb-10 title-font gold-text drop-shadow-[0_0_20px_rgba(247,215,122,0.6)] whitespace-nowrap">🎂 生日快樂 🎂</h1>
         <div class="text-[1.1rem] leading-loose mb-20 space-y-6">
