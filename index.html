@@ -49,14 +49,15 @@
     .gold-dust { position: absolute; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); pointer-events: none; animation: gold-fall linear forwards; }
     @keyframes gold-fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-    /* ✅ 外框加寬：這裡就是你說的外圍框線 */
     .glass-card {
       background: var(--card-bg);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(124, 214, 255, 0.2); border-radius: 40px;
       padding: 3rem;
       width: 92%;
-      max-width: 680px; /* 原本 520px：加寬 */
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(124, 214, 255, 0.05);
       position: relative; z-index: 10;
     }
